@@ -1,0 +1,54 @@
+@use '../variables/variables' as *;
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin font($fs, $lh: $lh-base, $font-variant: $regular-font) {
+  @if $font-variant == $text-regular {
+    font: 400 #{$fs}/#{$lh} $regular-font;
+  }
+
+  @if $font-variant == $text-medium {
+    font: 500 #{$fs}/#{$lh} $regular-font;
+  }
+
+  @if $font-variant == $text-bold {
+    font: 600 #{$fs}/#{$lh} $regular-font;
+  }
+}
+
+@mixin font-size($size, $lh) {
+  line-height: $lh;
+  font-size: $size;
+}
+
+@mixin absolute($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  margin: auto;
+}
+
+@mixin transition($prop: all, $duration: 0.25s, $easing: ease-out) {
+  transition-duration: $duration;
+  transition-property: $prop;
+  transition-timing-function: $easing;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
