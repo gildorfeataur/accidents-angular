@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "transport-accidents-angular": {
+    "front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "transport-accidents-angular:build:production"
+              "buildTarget": "front:build:production"
             },
             "development": {
-              "buildTarget": "transport-accidents-angular:build:development"
+              "buildTarget": "front:build:development"
             }
           },
           "defaultConfiguration": "development"
