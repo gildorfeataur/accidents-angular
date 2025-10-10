@@ -1,0 +1,30 @@
+<div class="accident-page">
+  <div class="header">
+    <a routerLink="/accidents-table" class="back-button">← Back</a>
+    <h1>{{ accident?.title }}</h1>
+  </div>
+
+  @if (loading) {
+  <div class="loading">
+    <p>Завантаження даних...</p>
+  </div>
+  }
+
+  @if (error) {
+  <div class="error">
+    <p>{{ error }}</p>
+  </div>
+  }
+
+  @if (!loading && !error && !accident) {
+  <div class="no-data">
+    <p>Немає даних про аварії</p>
+  </div>
+  }
+
+  <div class="content">
+    <p><strong>Статус:</strong> {{ accident?.status }}</p>
+    <p><strong>Координати:</strong> {{ accident?.lat }}, {{ accident?.lng }}</p>
+    <p><strong>Час:</strong> {{ accident?.timestamp | date:'dd.MM.yyyy HH:mm' }}</p>
+  </div>
+</div>

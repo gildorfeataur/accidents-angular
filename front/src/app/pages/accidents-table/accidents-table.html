@@ -1,0 +1,41 @@
+<div class="accidents-container">
+  <div class="accidents-header">
+    <h2>Транспортні аварії</h2>
+  </div>
+
+  @if (loading) {
+  <div class="loading">
+    <p>Завантаження даних...</p>
+  </div>
+  }
+
+  @if (error) {
+  <div class="error">
+    <p>{{ error }}</p>
+  </div>
+  }
+
+  @if (!loading && !error && accidents.length === 0) {
+  <div class="no-data">
+    <p>Немає даних про аварії</p>
+  </div>
+  }
+
+  @if (!loading && !error && accidents.length > 0) {
+  <div class="accidents-list">
+    @for (accident of accidents; track accident.id) {
+    <div class="accident-card" [class]="'accident-' + accident.status">
+      <div class="accident-header">
+        <h3><a routerLink="/accidents-table/{{ accident.id }}">{{ accident.title }}</a></h3>
+        <span class="accident-type">{{ accident.type }}</span>
+      </div>
+      <div class="accident-details">
+        <p><strong>Статус:</strong> {{ accident.status }}</p>
+        <p><strong>Координати:</strong> {{ accident.lat }}, {{ accident.lng }}</p>
+        <p><strong>Час:</strong> {{ accident.timestamp | date:'dd.MM.yyyy HH:mm' }}</p>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>

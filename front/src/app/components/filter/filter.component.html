@@ -1,0 +1,8 @@
+<p>Filter</p>
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+  <label>Name <input type="text" formControlName="name" /> </label>
+  <label>Email <input type="email" formControlName="email" /> </label>
+  <button type="submit" [disabled]="filterForm.invalid">Submit</button>
+</form>
+<p>{{filterForm.value.name}}</p>
+<p>{{filterForm.value.email}}</p>
