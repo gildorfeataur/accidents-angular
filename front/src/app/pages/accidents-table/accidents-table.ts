@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccidentsService, Accident } from '../../services/accidents.service';
 import { RouterLink } from '@angular/router';
@@ -6,12 +6,13 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-accidents',
   standalone: true,
+  providers: [AccidentsService],
   imports: [CommonModule, RouterLink],
   templateUrl: './accidents-table.html',
   styleUrl: './accidents-table.scss',
 })
 export class AccidentsTablePage implements OnInit {
-  private accidentsService = inject(AccidentsService);
+  constructor(private accidentsService: AccidentsService) {}
 
   accidents: Accident[] = [];
   loading = true;

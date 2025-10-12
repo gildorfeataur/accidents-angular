@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Accident, AccidentsService } from '../../services/accidents.service';
 
@@ -6,19 +6,28 @@ import { Accident, AccidentsService } from '../../services/accidents.service';
   selector: 'app-accidents-map',
   templateUrl: './accidents-map.html',
   styleUrls: ['./accidents-map.scss'],
+  providers: [AccidentsService],
   standalone: true,
 })
 export class AccidentsMapPage implements OnInit, AfterViewInit {
-  private accidentsService = inject(AccidentsService);
-  accidents: Accident[] = [];
-  loading = true;
-  error: string | null = null;
+  private accidents: Accident[] = [];
   private map!: L.Map;
-  markers: L.Marker[] = [
-    L.marker([50.45266465079895, 30.519056941565243]), // Kyiv, Ukraine
-  ];
+  private markers: L.Marker[] = [L.marker([50.45266465079895, 30.519056941565243])];
+  protected loading = true;
+  protected error: string | null = null;
 
-  constructor() {}
+  private accidentPopup(accident: Accident): string {
+    // Accident popup content
+    return `
+      <div class="accident-details">
+        <p><strong>Status:</strong> ${accident.status || 'N/A'}</p>
+        <p><strong>Coordinates:</strong> ${accident.lat || 'N/A'}, ${accident.lng || 'N/A'}</p>
+        <p><strong>Time:</strong> ${accident.timestamp || 'N/A'}</p>
+      </div>
+    `;
+  }
+
+  constructor(private accidentsService: AccidentsService) {}
 
   ngOnInit() {
     this.loadAccidents();
@@ -37,7 +46,6 @@ export class AccidentsMapPage implements OnInit, AfterViewInit {
       next: (data) => {
         this.accidents = data;
         this.loading = false;
-        // Додаємо маркери після завантаження даних
         this.addAccidentMarkers();
       },
       error: (err) => {
@@ -70,18 +78,12 @@ export class AccidentsMapPage implements OnInit, AfterViewInit {
       if (accident.lat && accident.lng) {
         L.marker([accident.lat, accident.lng])
           .addTo(this.map)
-          .bindPopup(
-            `<div class="accident-details">
-            <p><strong>Статус:</strong> ${accident.status}</p>
-            <p><strong>Координати:</strong> ${accident.lat}, ${accident.lng}</p>
-            <p><strong>Час:</strong> ${new Date(accident.timestamp).toLocaleString()}</p>
-          </div>`
-          );
+          .bindPopup(() => this.accidentPopup(accident));
       }
     });
 
     // Центруємо карту по всім маркерам
-    this.centerMapToAccidents();
+    // this.centerMapToAccidents();
   }
 
   private centerMap() {
