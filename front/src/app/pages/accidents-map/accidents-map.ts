@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Accident, AccidentsService } from '../../services/accidents.service';
+import { Navigation } from '../../components/navigation/navigation';
 
 @Component({
   selector: 'app-accidents-map',
@@ -8,6 +9,7 @@ import { Accident, AccidentsService } from '../../services/accidents.service';
   styleUrls: ['./accidents-map.scss'],
   providers: [AccidentsService],
   standalone: true,
+  imports: [Navigation],
 })
 export class AccidentsMapPage implements OnInit, AfterViewInit {
   private accidents: Accident[] = [];

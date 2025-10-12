@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccidentsService, Accident } from '../../services/accidents.service';
 import { RouterLink } from '@angular/router';
+import { Navigation } from '../../components/navigation/navigation';
 
 @Component({
   selector: 'app-accidents',
   standalone: true,
   providers: [AccidentsService],
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, Navigation],
   templateUrl: './accidents-table.html',
   styleUrl: './accidents-table.scss',
 })

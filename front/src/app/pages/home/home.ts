@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FilterComponent } from '../../components/filter/filter.component';
+import { Navigation } from '../../components/navigation/navigation';
 
 @Component({
   selector: 'app-home',
-  imports: [FilterComponent, RouterLink],
+  imports: [Navigation],
   templateUrl: './home.html',
-  styleUrl: './home.scss',
   standalone: true,
 })
 export class HomePage {
-  protected title = 'Transport Accidents Homepage';
+  protected title = 'Transport Accidents Home';
 }
