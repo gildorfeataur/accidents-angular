@@ -15,21 +15,29 @@ import { Navigation } from '../../components/navigation/navigation';
 export class AccidentsTablePage implements OnInit {
   constructor(private accidentsService: AccidentsService) {}
 
-  accidents: Accident[] = [];
-  loading = true;
-  error: string | null = null;
+  protected accidents: Accident[] = [];
+  protected accidentPageElements: Accident[] = [];
+  protected loading: boolean = true;
+  protected error: string | null = null;
+  protected page: number = 1;
+  protected limit: number = 10;
+
+  protected get totalPages(): number {
+    return Math.ceil(this.accidents.length / this.limit);
+  }
 
   ngOnInit(): void {
     this.loadAccidents();
   }
 
-  loadAccidents(): void {
+  private loadAccidents(): void {
     this.loading = true;
     this.error = null;
 
     this.accidentsService.getAccidents().subscribe({
       next: (data) => {
         this.accidents = data;
+        this.accidentPageElements = this.accidents.slice(0, this.limit * this.page);
         this.loading = false;
       },
       error: (err) => {
@@ -38,5 +46,25 @@ export class AccidentsTablePage implements OnInit {
         console.error('Error loading accidents:', err);
       },
     });
+  }
+
+  protected nextPage(): void {
+    if (this.page * this.limit < this.accidents.length) {
+      this.accidentPageElements = this.accidents.slice(
+        (this.page + 1) * this.limit - this.limit,
+        (this.page + 1) * this.limit
+      );
+      this.page++;
+    }
+  }
+
+  protected previousPage(): void {
+    if (this.page > 1) {
+      this.accidentPageElements = this.accidents.slice(
+        (this.page - 1) * this.limit - this.limit,
+        (this.page - 1) * this.limit
+      );
+      this.page--;
+    }
   }
 }

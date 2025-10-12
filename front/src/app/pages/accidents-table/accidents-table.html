@@ -31,7 +31,7 @@
     </div>
 
     <div class="table-body">
-      @for (accident of accidents; track accident.id) {
+      @for (accident of accidentPageElements; track accident.id) {
       <div class="table-row" [class]="'accident-' + accident.status">
         <div class="table-cell title-col">
           <a routerLink="/accidents-table/{{ accident.id }}">{{ accident.title }}</a>
@@ -50,6 +50,26 @@
         </div>
       </div>
       }
+    </div>
+  </div>
+
+  <div class="pagination-container">
+    <div class="pagination-controls">
+      <button class="pagination-btn prev-btn" (click)="previousPage()" [disabled]="page === 1"
+        [class.disabled]="page === 1">
+        <span class="btn-text">Попередня</span>
+      </button>
+
+      <div class="page-numbers">
+        <span class="current-page">{{ page }}</span>
+        <span class="page-separator">/</span>
+        <span class="total-pages">{{ totalPages }}</span>
+      </div>
+
+      <button class="pagination-btn next-btn" (click)="nextPage()" [disabled]="page >= totalPages"
+        [class.disabled]="page >= totalPages">
+        <span class="btn-text">Наступна</span>
+      </button>
     </div>
   </div>
   }
