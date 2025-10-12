@@ -1,33 +1,332 @@
-.accident-page {
-  padding: 20px;
-  max-width: 800px;
+.accident-container {
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
+// Header styles
+.accident-header {
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e9ecef;
 }
 
 .back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-right: 20px;
   font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
+  }
+
+  .back-icon {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .back-text {
+    font-weight: 500;
+  }
 }
 
-.back-button:hover {
-  background-color: #0056b3;
+.header-info {
+  .accident-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+  }
 }
 
-.content {
+// Loading, error, no-data states
+.loading,
+.error,
+.no-data {
+  text-align: center;
+  padding: 60px 40px;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin: 20px 0;
+
+  p {
+    font-size: 16px;
+    color: #6c757d;
+    margin: 16px 0;
+  }
+}
+
+.loading {
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 16px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  border-color: #dc3545;
+
+  .error-icon {
+    font-size: 48px;
+    color: #dc3545;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #dc3545;
+    font-weight: 500;
+  }
+
+  .retry-btn {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 16px;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+}
+
+.no-data {
+  .no-data-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 16px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Status badges (same as table)
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.status-active {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  &.status-resolved {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  &.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+  }
+}
+
+// Accident details
+.accident-details {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+.details-card,
+.location-card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+}
+
+.details-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
   background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 5px;
-  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+
+  .detail-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .detail-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+}
+
+.accident-type {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Location card
+.location-info {
+  display: grid;
+  gap: 20px;
+}
+
+.coordinates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.coordinate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+
+  .coordinate-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+  }
+
+  .coordinate-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #007bff;
+    font-family: 'Courier New', monospace;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .accident-container {
+    padding: 16px;
+  }
+
+  .accident-header {
+    margin-bottom: 24px;
+  }
+
+  .header-info .accident-title {
+    font-size: 22px;
+  }
+
+  .back-button {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .details-card,
+  .location-card {
+    padding: 20px;
+  }
+
+  .coordinates {
+    grid-template-columns: 1fr;
+  }
+
+  .coordinate-item {
+    .coordinate-value {
+      font-size: 16px;
+    }
+  }
+
+  .detail-item {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accident-container {
+    padding: 12px;
+  }
+
+  .back-button .back-text {
+    display: none;
+  }
+
+  .header-info .accident-title {
+    font-size: 20px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
 }

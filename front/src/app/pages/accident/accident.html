@@ -1,30 +1,80 @@
-<div class="accident-page">
-  <div class="header">
-    <a routerLink="/accidents-table" class="back-button">← Back</a>
-    <h1>{{ accident?.title }}</h1>
+<div class="accident-container">
+  <div class="accident-header">
+    <a routerLink="/accidents-table" class="back-button">
+      <span class="back-icon">←</span>
+      <span class="back-text">Повернутися до списку</span>
+    </a>
+    <div class="header-info">
+      <h1 class="accident-title">{{ accident?.title }}</h1>
+    </div>
   </div>
 
   @if (loading) {
   <div class="loading">
-    <p>Завантаження даних...</p>
+    <div class="loading-spinner"></div>
+    <p>Завантаження даних про аварію...</p>
   </div>
   }
 
   @if (error) {
   <div class="error">
+    <div class="error-icon">⚠</div>
     <p>{{ error }}</p>
+    <button class="retry-btn" (click)="loadAccident()">Спробувати знову</button>
   </div>
   }
 
   @if (!loading && !error && !accident) {
   <div class="no-data">
-    <p>Немає даних про аварії</p>
+    <div class="no-data-icon">📄</div>
+    <p>Аварію не знайдено</p>
+    <a routerLink="/accidents-table" class="back-link">Повернутися до списку</a>
   </div>
   }
 
-  <div class="content">
-    <p><strong>Статус:</strong> {{ accident?.status }}</p>
-    <p><strong>Координати:</strong> {{ accident?.lat }}, {{ accident?.lng }}</p>
-    <p><strong>Час:</strong> {{ accident?.timestamp | date:'dd.MM.yyyy HH:mm' }}</p>
+  @if (!loading && !error && accident) {
+  <div class="accident-details">
+    <div class="details-card">
+      <h2 class="card-title">Основна інформація</h2>
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Назва аварії:</span>
+          <span class="detail-value">{{ accident.title }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Тип аварії:</span>
+          <span class="detail-value">
+            <span class="accident-type">{{ accident.type }}</span>
+          </span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Статус:</span>
+          <span class="detail-value">
+            <span class="status-badge status-{{ accident.status }}">{{ accident.status }}</span>
+          </span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Час події:</span>
+          <span class="detail-value">{{ accident.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-card">
+      <h2 class="card-title">Місцезнаходження</h2>
+      <div class="location-info">
+        <div class="coordinates">
+          <div class="coordinate-item">
+            <span class="coordinate-label">Широта:</span>
+            <span class="coordinate-value">{{ accident.lat }}°</span>
+          </div>
+          <div class="coordinate-item">
+            <span class="coordinate-label">Довгота:</span>
+            <span class="coordinate-value">{{ accident.lng }}°</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  }
 </div>
