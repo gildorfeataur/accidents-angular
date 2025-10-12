@@ -21,20 +21,36 @@
   }
 
   @if (!loading && !error && accidents.length > 0) {
-  <div class="accidents-list">
-    @for (accident of accidents; track accident.id) {
-    <div class="accident-card" [class]="'accident-' + accident.status">
-      <div class="accident-header">
-        <h3><a routerLink="/accidents-table/{{ accident.id }}">{{ accident.title }}</a></h3>
-        <span class="accident-type">{{ accident.type }}</span>
-      </div>
-      <div class="accident-details">
-        <p><strong>Статус:</strong> {{ accident.status }}</p>
-        <p><strong>Координати:</strong> {{ accident.lat }}, {{ accident.lng }}</p>
-        <p><strong>Час:</strong> {{ accident.timestamp | date:'dd.MM.yyyy HH:mm' }}</p>
-      </div>
+  <div class="accidents-table">
+    <div class="table-header">
+      <div class="header-cell title-col">Назва</div>
+      <div class="header-cell type-col">Тип</div>
+      <div class="header-cell status-col">Статус</div>
+      <div class="header-cell coords-col">Координати</div>
+      <div class="header-cell time-col">Час</div>
     </div>
-    }
+
+    <div class="table-body">
+      @for (accident of accidents; track accident.id) {
+      <div class="table-row" [class]="'accident-' + accident.status">
+        <div class="table-cell title-col">
+          <a routerLink="/accidents-table/{{ accident.id }}">{{ accident.title }}</a>
+        </div>
+        <div class="table-cell type-col">
+          <span class="accident-type">{{ accident.type }}</span>
+        </div>
+        <div class="table-cell status-col">
+          <span class="status-badge status-{{ accident.status }}">{{ accident.status }}</span>
+        </div>
+        <div class="table-cell coords-col">
+          {{ accident.lat }}, {{ accident.lng }}
+        </div>
+        <div class="table-cell time-col">
+          {{ accident.timestamp | date:'dd.MM.yyyy HH:mm' }}
+        </div>
+      </div>
+      }
+    </div>
   </div>
   }
 </section>

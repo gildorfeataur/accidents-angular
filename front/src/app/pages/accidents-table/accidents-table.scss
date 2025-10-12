@@ -64,73 +64,143 @@
   }
 }
 
-.accidents-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+.accidents-table {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.accident-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s, transform 0.2s;
+.table-header {
+  display: flex;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  font-weight: 500;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.header-cell {
+  padding: 16px 12px;
+  border-right: 1px solid #e9ecef;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid #f1f3f4;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    background-color: #f8f9fa;
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 
   &.accident-active {
-    border-left: 4px solid #dc3545;
+    border-left: 3px solid #dc3545;
   }
 
   &.accident-resolved {
-    border-left: 4px solid #28a745;
+    border-left: 3px solid #28a745;
   }
 
   &.accident-pending {
-    border-left: 4px solid #ffc107;
+    border-left: 3px solid #ffc107;
   }
 }
 
-.accident-header {
+.table-cell {
+  padding: 12px;
+  border-right: 1px solid #f1f3f4;
+  font-size: 14px;
+  color: #495057;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
+  align-items: center;
 
-  h3 {
-    margin: 0;
-    color: #333;
-    font-size: 16px;
-    line-height: 1.3;
+  &:last-child {
+    border-right: none;
   }
 
-  .accident-type {
-    background-color: #f8f9fa;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #495057;
-    white-space: nowrap;
-    margin-left: 8px;
+  a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: #34495e;
+      text-decoration: underline;
+    }
   }
 }
 
-.accident-details {
-  p {
-    margin: 6px 0;
-    font-size: 14px;
-    color: #666;
+// Column widths
+.title-col {
+  flex: 2;
+  min-width: 200px;
+}
 
-    strong {
-      color: #333;
-    }
+.type-col {
+  flex: 1;
+  min-width: 120px;
+}
+
+.status-col {
+  flex: 1;
+  min-width: 100px;
+}
+
+.coords-col {
+  flex: 1.5;
+  min-width: 140px;
+}
+
+.time-col {
+  flex: 1.2;
+  min-width: 130px;
+}
+
+.accident-type {
+  background-color: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #495057;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &.status-active {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  &.status-resolved {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  &.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
   }
 }
 
@@ -141,17 +211,61 @@
     text-align: center;
   }
 
-  .accidents-list {
-    grid-template-columns: 1fr;
+  .accidents-table {
+    border: none;
   }
 
-  .accident-header {
-    flex-direction: column;
-    gap: 8px;
+  .table-header {
+    display: none;
+  }
 
-    .accident-type {
-      align-self: flex-start;
-      margin-left: 0;
+  .table-row {
+    flex-direction: column;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    padding: 0;
+
+    &.accident-active,
+    &.accident-resolved,
+    &.accident-pending {
+      border-left: 3px solid;
     }
+  }
+
+  .table-cell {
+    border-right: none;
+    border-bottom: 1px solid #f1f3f4;
+    padding: 12px 16px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &::before {
+      content: attr(data-label);
+      font-weight: 500;
+      color: #2c3e50;
+      margin-right: 8px;
+      min-width: 80px;
+      display: inline-block;
+    }
+  }
+
+  // Add data labels for mobile
+  .title-col::before {
+    content: 'Назва:';
+  }
+  .type-col::before {
+    content: 'Тип:';
+  }
+  .status-col::before {
+    content: 'Статус:';
+  }
+  .coords-col::before {
+    content: 'Координати:';
+  }
+  .time-col::before {
+    content: 'Час:';
   }
 }
