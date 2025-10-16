@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 export interface Accident {
   id: string;
-  type: string;
   title: string;
-  status: string;
+  category: string;
+  severity: number;
   lat: number;
   lng: number;
-  timestamp: string;
+  createdAt: string;
 }
 
 @Injectable({

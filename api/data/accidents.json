@@ -1,452 +1,452 @@
 [
   {
     "id": "1",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus collision at Main St.",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4501,
     "lng": 30.5234,
-    "timestamp": "2025-08-26T09:00:00Z"
+    "createdAt": "2025-08-26T09:00:00Z"
   },
   {
     "id": "2",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram derailment near Central Park",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4547,
     "lng": 30.52,
-    "timestamp": "2025-08-25T14:30:00Z"
+    "createdAt": "2025-08-25T14:30:00Z"
   },
   {
     "id": "3",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro breakdown at Station 5",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4475,
     "lng": 30.5133,
-    "timestamp": "2025-08-26T08:45:00Z"
+    "createdAt": "2025-08-26T08:45:00Z"
   },
   {
     "id": "4",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus fire on Highway 1",
-    "status": "resolved",
+    "severity": 5,
     "lat": 50.46,
     "lng": 30.525,
-    "timestamp": "2025-08-24T17:10:00Z"
+    "createdAt": "2025-08-24T17:10:00Z"
   },
   {
     "id": "5",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram accident at Market Square",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4522,
     "lng": 30.5199,
-    "timestamp": "2025-08-26T07:20:00Z"
+    "createdAt": "2025-08-26T07:20:00Z"
   },
   {
     "id": "6",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro signal failure at North Station",
-    "status": "resolved",
+    "severity": 1,
     "lat": 50.449,
     "lng": 30.51,
-    "timestamp": "2025-08-23T12:00:00Z"
+    "createdAt": "2025-08-23T12:00:00Z"
   },
   {
     "id": "7",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus stalled at River Bridge",
-    "status": "active",
+    "severity": 2,
     "lat": 50.453,
     "lng": 30.527,
-    "timestamp": "2025-08-26T09:10:00Z"
+    "createdAt": "2025-08-26T09:10:00Z"
   },
   {
     "id": "8",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram collision at 8th Avenue",
-    "status": "resolved",
+    "severity": 4,
     "lat": 50.4555,
     "lng": 30.5222,
-    "timestamp": "2025-08-22T16:45:00Z"
+    "createdAt": "2025-08-22T16:45:00Z"
   },
   {
     "id": "9",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro door malfunction at Central Station",
-    "status": "active",
+    "severity": 1,
     "lat": 50.4488,
     "lng": 30.5155,
-    "timestamp": "2025-08-26T08:55:00Z"
+    "createdAt": "2025-08-26T08:55:00Z"
   },
   {
     "id": "10",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus accident at University Blvd",
-    "status": "resolved",
+    "severity": 3,
     "lat": 50.4511,
     "lng": 30.5211,
-    "timestamp": "2025-08-21T10:30:00Z"
+    "createdAt": "2025-08-21T10:30:00Z"
   },
   {
     "id": "11",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram breakdown at Liberty Square",
-    "status": "active",
+    "severity": 2,
     "lat": 50.4562,
     "lng": 30.5187,
-    "timestamp": "2025-08-26T09:15:00Z"
+    "createdAt": "2025-08-26T09:15:00Z"
   },
   {
     "id": "12",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus collision at Oak Street",
-    "status": "resolved",
+    "severity": 4,
     "lat": 50.4571,
     "lng": 30.5241,
-    "timestamp": "2025-08-25T11:45:00Z"
+    "createdAt": "2025-08-25T11:45:00Z"
   },
   {
     "id": "13",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro technical issue at South Station",
-    "status": "active",
+    "severity": 2,
     "lat": 50.4456,
     "lng": 30.5112,
-    "timestamp": "2025-08-26T09:20:00Z"
+    "createdAt": "2025-08-26T09:20:00Z"
   },
   {
     "id": "14",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus tire burst at City Mall",
-    "status": "resolved",
+    "severity": 1,
     "lat": 50.4525,
     "lng": 30.5288,
-    "timestamp": "2025-08-24T13:00:00Z"
+    "createdAt": "2025-08-24T13:00:00Z"
   },
   {
     "id": "15",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram power outage at Green Park",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4543,
     "lng": 30.5205,
-    "timestamp": "2025-08-26T09:25:00Z"
+    "createdAt": "2025-08-26T09:25:00Z"
   },
   {
     "id": "16",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro delay at East Station",
-    "status": "resolved",
+    "severity": 1,
     "lat": 50.4478,
     "lng": 30.5144,
-    "timestamp": "2025-08-23T15:30:00Z"
+    "createdAt": "2025-08-23T15:30:00Z"
   },
   {
     "id": "17",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus accident at Victory Avenue",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4537,
     "lng": 30.5263,
-    "timestamp": "2025-08-26T09:30:00Z"
+    "createdAt": "2025-08-26T09:30:00Z"
   },
   {
     "id": "18",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram derailment at West End",
-    "status": "resolved",
+    "severity": 5,
     "lat": 50.4559,
     "lng": 30.5231,
-    "timestamp": "2025-08-22T18:10:00Z"
+    "createdAt": "2025-08-22T18:10:00Z"
   },
   {
     "id": "19",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro emergency stop at North Park",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4482,
     "lng": 30.5167,
-    "timestamp": "2025-08-26T09:35:00Z"
+    "createdAt": "2025-08-26T09:35:00Z"
   },
   {
     "id": "20",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus breakdown at Central Plaza",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4518,
     "lng": 30.5228,
-    "timestamp": "2025-08-21T12:20:00Z"
+    "createdAt": "2025-08-21T12:20:00Z"
   },
   {
     "id": "21",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram collision at Bridge Road",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4565,
     "lng": 30.5192,
-    "timestamp": "2025-08-26T09:40:00Z"
+    "createdAt": "2025-08-26T09:40:00Z"
   },
   {
     "id": "22",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus fire at Industrial Zone",
-    "status": "resolved",
+    "severity": 5,
     "lat": 50.4577,
     "lng": 30.5255,
-    "timestamp": "2025-08-25T16:00:00Z"
+    "createdAt": "2025-08-25T16:00:00Z"
   },
   {
     "id": "23",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro door jam at Old Town",
-    "status": "active",
+    "severity": 1,
     "lat": 50.4469,
     "lng": 30.5129,
-    "timestamp": "2025-08-26T09:45:00Z"
+    "createdAt": "2025-08-26T09:45:00Z"
   },
   {
     "id": "24",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus accident at Sports Arena",
-    "status": "resolved",
+    "severity": 3,
     "lat": 50.4532,
     "lng": 30.5291,
-    "timestamp": "2025-08-24T19:10:00Z"
+    "createdAt": "2025-08-24T19:10:00Z"
   },
   {
     "id": "25",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram breakdown at City Hall",
-    "status": "active",
+    "severity": 2,
     "lat": 50.4549,
     "lng": 30.5217,
-    "timestamp": "2025-08-26T09:50:00Z"
+    "createdAt": "2025-08-26T09:50:00Z"
   },
   {
     "id": "26",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro technical issue at River Station",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4485,
     "lng": 30.5178,
-    "timestamp": "2025-08-23T17:00:00Z"
+    "createdAt": "2025-08-23T17:00:00Z"
   },
   {
     "id": "27",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus collision at North Avenue",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4527,
     "lng": 30.5239,
-    "timestamp": "2025-08-26T09:55:00Z"
+    "createdAt": "2025-08-26T09:55:00Z"
   },
   {
     "id": "28",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram accident at South Square",
-    "status": "resolved",
+    "severity": 3,
     "lat": 50.4568,
     "lng": 30.5209,
-    "timestamp": "2025-08-22T20:15:00Z"
+    "createdAt": "2025-08-22T20:15:00Z"
   },
   {
     "id": "29",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro delay at University Station",
-    "status": "active",
+    "severity": 1,
     "lat": 50.4472,
     "lng": 30.5137,
-    "timestamp": "2025-08-26T10:00:00Z"
+    "createdAt": "2025-08-26T10:00:00Z"
   },
   {
     "id": "30",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus breakdown at Market Road",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4515,
     "lng": 30.5215,
-    "timestamp": "2025-08-21T14:30:00Z"
+    "createdAt": "2025-08-21T14:30:00Z"
   },
   {
     "id": "31",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram power failure at Main Station",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4552,
     "lng": 30.5182,
-    "timestamp": "2025-08-26T10:05:00Z"
+    "createdAt": "2025-08-26T10:05:00Z"
   },
   {
     "id": "32",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus tire burst at River Road",
-    "status": "resolved",
+    "severity": 1,
     "lat": 50.4574,
     "lng": 30.5247,
-    "timestamp": "2025-08-25T18:00:00Z"
+    "createdAt": "2025-08-25T18:00:00Z"
   },
   {
     "id": "33",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro emergency stop at Central Park",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4465,
     "lng": 30.5117,
-    "timestamp": "2025-08-26T10:10:00Z"
+    "createdAt": "2025-08-26T10:10:00Z"
   },
   {
     "id": "34",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus accident at Liberty Avenue",
-    "status": "resolved",
+    "severity": 4,
     "lat": 50.4539,
     "lng": 30.5281,
-    "timestamp": "2025-08-24T21:10:00Z"
+    "createdAt": "2025-08-24T21:10:00Z"
   },
   {
     "id": "35",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram collision at Victory Square",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4546,
     "lng": 30.5202,
-    "timestamp": "2025-08-26T10:15:00Z"
+    "createdAt": "2025-08-26T10:15:00Z"
   },
   {
     "id": "36",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro technical issue at West Station",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4481,
     "lng": 30.5163,
-    "timestamp": "2025-08-23T19:00:00Z"
+    "createdAt": "2025-08-23T19:00:00Z"
   },
   {
     "id": "37",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus collision at East Avenue",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4524,
     "lng": 30.5232,
-    "timestamp": "2025-08-26T10:20:00Z"
+    "createdAt": "2025-08-26T10:20:00Z"
   },
   {
     "id": "38",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram accident at North Square",
-    "status": "resolved",
+    "severity": 3,
     "lat": 50.4561,
     "lng": 30.5213,
-    "timestamp": "2025-08-22T22:15:00Z"
+    "createdAt": "2025-08-22T22:15:00Z"
   },
   {
     "id": "39",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro delay at City Center",
-    "status": "active",
+    "severity": 1,
     "lat": 50.4476,
     "lng": 30.5141,
-    "timestamp": "2025-08-26T10:25:00Z"
+    "createdAt": "2025-08-26T10:25:00Z"
   },
   {
     "id": "40",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus breakdown at Old Road",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4513,
     "lng": 30.5219,
-    "timestamp": "2025-08-21T16:30:00Z"
+    "createdAt": "2025-08-21T16:30:00Z"
   },
   {
     "id": "41",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram power failure at River Station",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4557,
     "lng": 30.5189,
-    "timestamp": "2025-08-26T10:30:00Z"
+    "createdAt": "2025-08-26T10:30:00Z"
   },
   {
     "id": "42",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus tire burst at Central Avenue",
-    "status": "resolved",
+    "severity": 1,
     "lat": 50.4579,
     "lng": 30.5243,
-    "timestamp": "2025-08-25T20:00:00Z"
+    "createdAt": "2025-08-25T20:00:00Z"
   },
   {
     "id": "43",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro emergency stop at Liberty Park",
-    "status": "active",
+    "severity": 3,
     "lat": 50.4463,
     "lng": 30.5115,
-    "timestamp": "2025-08-26T10:35:00Z"
+    "createdAt": "2025-08-26T10:35:00Z"
   },
   {
     "id": "44",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus accident at Green Avenue",
-    "status": "resolved",
+    "severity": 4,
     "lat": 50.4541,
     "lng": 30.5283,
-    "timestamp": "2025-08-24T23:10:00Z"
+    "createdAt": "2025-08-24T23:10:00Z"
   },
   {
     "id": "45",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram collision at Sports Square",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4548,
     "lng": 30.5207,
-    "timestamp": "2025-08-26T10:40:00Z"
+    "createdAt": "2025-08-26T10:40:00Z"
   },
   {
     "id": "46",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro technical issue at Industrial Station",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4483,
     "lng": 30.5161,
-    "timestamp": "2025-08-23T21:00:00Z"
+    "createdAt": "2025-08-23T21:00:00Z"
   },
   {
     "id": "47",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus collision at South Avenue",
-    "status": "active",
+    "severity": 4,
     "lat": 50.4521,
     "lng": 30.5236,
-    "timestamp": "2025-08-26T10:45:00Z"
+    "createdAt": "2025-08-26T10:45:00Z"
   },
   {
     "id": "48",
-    "type": "tram",
+    "category": "tram",
     "title": "Tram accident at East Square",
-    "status": "resolved",
+    "severity": 3,
     "lat": 50.4563,
     "lng": 30.5211,
-    "timestamp": "2025-08-22T23:15:00Z"
+    "createdAt": "2025-08-22T23:15:00Z"
   },
   {
     "id": "49",
-    "type": "metro",
+    "category": "metro",
     "title": "Metro delay at Liberty Station",
-    "status": "active",
+    "severity": 1,
     "lat": 50.4474,
     "lng": 30.5139,
-    "timestamp": "2025-08-26T10:50:00Z"
+    "createdAt": "2025-08-26T10:50:00Z"
   },
   {
     "id": "50",
-    "type": "bus",
+    "category": "bus",
     "title": "Bus breakdown at Victory Road",
-    "status": "resolved",
+    "severity": 2,
     "lat": 50.4517,
     "lng": 30.5217,
-    "timestamp": "2025-08-21T18:30:00Z"
+    "createdAt": "2025-08-21T18:30:00Z"
   }
 ]

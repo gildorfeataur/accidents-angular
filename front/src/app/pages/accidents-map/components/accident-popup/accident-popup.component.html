@@ -1,5 +1,7 @@
-<div class="accident-details">
-  <p><strong>Статус:</strong> {{status}}</p>
-  <p><strong>Координати:</strong> {{lat}}, {{lng}}</p>
-  <p><strong>Час:</strong> {{timestamp}}</p>
+<div class="popup-container">
+  <a href="/accidents/{{id}}" class="popup-title">{{title}}</a>
+  <p><strong>Категорія :</strong> {{category || 'N/A'}}</p>
+  <p><strong>Важкість:</strong> {{severity || 'N/A'}}</p>
+  <p><strong>Координати:</strong> {{lat || 'N/A'}}, {{lng || 'N/A'}}</p>
+  <p><strong>Час:</strong> {{createdAt || 'N/A'}}</p>
 </div>

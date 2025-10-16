@@ -42,20 +42,20 @@
           <span class="detail-value">{{ accident.title }}</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Тип аварії:</span>
+          <span class="detail-label">Категорія:</span>
           <span class="detail-value">
-            <span class="accident-type">{{ accident.type }}</span>
+            <span class="accident-type">{{ accident.category }}</span>
           </span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Статус:</span>
+          <span class="detail-label">Важкість:</span>
           <span class="detail-value">
-            <span class="status-badge status-{{ accident.status }}">{{ accident.status }}</span>
+            <span class="status-badge status-{{ accident.severity }}">{{ accident.severity }}</span>
           </span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Час події:</span>
-          <span class="detail-value">{{ accident.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+          <span class="detail-value">{{ accident.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
         </div>
       </div>
     </div>

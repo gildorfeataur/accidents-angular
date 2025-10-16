@@ -24,29 +24,29 @@
   <div class="accidents-table">
     <div class="table-header">
       <div class="header-cell title-col">Назва</div>
-      <div class="header-cell type-col">Тип</div>
-      <div class="header-cell status-col">Статус</div>
+      <div class="header-cell type-col">Категорія</div>
+      <div class="header-cell status-col">Важкість</div>
       <div class="header-cell coords-col">Координати</div>
       <div class="header-cell time-col">Час</div>
     </div>
 
     <div class="table-body">
       @for (accident of accidentPageElements; track accident.id) {
-      <div class="table-row" [class]="'accident-' + accident.status">
+      <div class="table-row" [class]="'accident-' + accident.severity">
         <div class="table-cell title-col">
           <a routerLink="/accidents/{{ accident.id }}">{{ accident.title }}</a>
         </div>
         <div class="table-cell type-col">
-          <span class="accident-type">{{ accident.type }}</span>
+          <span class="accident-type">{{ accident.category }}</span>
         </div>
         <div class="table-cell status-col">
-          <span class="status-badge status-{{ accident.status }}">{{ accident.status }}</span>
+          <span class="status-badge status-{{ accident.severity }}">{{ accident.severity }}</span>
         </div>
         <div class="table-cell coords-col">
           {{ accident.lat }}, {{ accident.lng }}
         </div>
         <div class="table-cell time-col">
-          {{ accident.timestamp | date:'dd.MM.yyyy HH:mm' }}
+          {{ accident.createdAt | date:'dd.MM.yyyy HH:mm' }}
         </div>
       </div>
       }
