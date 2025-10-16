@@ -20,11 +20,15 @@ export class AccidentsMapPage implements OnInit, AfterViewInit {
 
   private accidentPopup(accident: Accident): string {
     // Accident popup content
+
     return `
       <div class="accident-details">
-        <p><strong>Status:</strong> ${accident.status || 'N/A'}</p>
+        <a href="/accidents/${accident.id}">${accident.title}</a>
+        <p><strong>Type:</strong> ${accident.type || 'N/A'}, <strong>Status:</strong> ${
+      accident.status || 'N/A'
+    }</p>
         <p><strong>Coordinates:</strong> ${accident.lat || 'N/A'}, ${accident.lng || 'N/A'}</p>
-        <p><strong>Time:</strong> ${accident.timestamp || 'N/A'}</p>
+        <p><strong>Time:</strong> ${new Date(accident.timestamp).toLocaleString() || 'N/A'}</p>
       </div>
     `;
   }
@@ -65,8 +69,12 @@ export class AccidentsMapPage implements OnInit, AfterViewInit {
   }
 
   private addAccidentMarkers(): void {
-    // Перевіряємо, чи карта вже ініціалізована
     if (!this.map) return;
+
+    const icon = L.icon({
+      iconUrl: 'marker-icon.png',
+      shadowUrl: 'marker-shadow.png',
+    });
 
     // Очищуємо попередні маркери аварій (залишаємо тільки статичні)
     this.map.eachLayer((layer) => {
@@ -78,7 +86,7 @@ export class AccidentsMapPage implements OnInit, AfterViewInit {
     // Додаємо маркери для кожної аварії
     this.accidents.forEach((accident) => {
       if (accident.lat && accident.lng) {
-        L.marker([accident.lat, accident.lng])
+        L.marker([accident.lat, accident.lng], { icon })
           .addTo(this.map)
           .bindPopup(() => this.accidentPopup(accident));
       }

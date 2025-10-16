@@ -1,7 +1,7 @@
+import { DatePipe, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Accident, AccidentsService } from '../../services/accidents.service';
-import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,7 +19,11 @@ export class AccidentPage {
   protected loading = true;
   protected error: string | null = null;
 
-  constructor(private accidentsService: AccidentsService, private route: ActivatedRoute) {
+  constructor(
+    private accidentsService: AccidentsService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {
     this.subscription = this.route.params.subscribe((params) => {
       this.accidentId = params['id'];
     });
@@ -49,5 +53,9 @@ export class AccidentPage {
         console.error('Error loading accidents:', err);
       },
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

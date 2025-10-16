@@ -9,6 +9,6 @@ export const routes: Routes = [
   { path: '', component: HomePage },
   { path: 'accidents-table', component: AccidentsTablePage },
   { path: 'accidents-map', component: AccidentsMapPage },
-  { path: 'accidents-table/:id', component: AccidentPage },
+  { path: 'accidents/:id', component: AccidentPage },
   { path: '**', component: NotFound },
 ];

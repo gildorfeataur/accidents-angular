@@ -1,9 +1,9 @@
 <div class="accident-container">
   <div class="accident-header">
-    <a routerLink="/accidents-table" class="back-button">
+    <button class="back-button" (click)="goBack()">
       <span class="back-icon">←</span>
-      <span class="back-text">Повернутися до списку</span>
-    </a>
+      <span class="back-text">Назад</span>
+    </button>
     <div class="header-info">
       <h1 class="accident-title">{{ accident?.title }}</h1>
     </div>
