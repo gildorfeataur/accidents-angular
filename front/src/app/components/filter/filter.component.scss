@@ -1,0 +1,74 @@
+.filter-card {
+  margin: 16px;
+  max-width: 400px;
+
+  mat-card-header {
+    margin-bottom: 16px;
+  }
+
+  mat-card-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.severity-section,
+.date-section {
+  h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.severity-controls,
+.date-controls {
+  display: flex;
+  gap: 16px;
+
+  .severity-input,
+  .date-input {
+    flex: 1;
+    min-width: 0; // Дозволяє flex-елементам зменшуватись
+  }
+}
+
+// Адаптивність для мобільних пристроїв
+@media (max-width: 600px) {
+  .filter-card {
+    margin: 8px;
+    max-width: none;
+  }
+
+  .severity-controls,
+  .date-controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+// Стилізація для multi-select
+::ng-deep .mat-mdc-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background-color: rgba(63, 81, 181, 0.1);
+}
+
+// Кастомні стилі для карточки дій
+mat-card-actions {
+  padding: 16px 24px 24px;
+  margin: 0;
+
+  button {
+    width: 100%;
+  }
+}

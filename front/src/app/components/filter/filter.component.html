@@ -1,8 +1,76 @@
-<p>Filter</p>
-<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-  <label>Name <input type="text" formControlName="name" /> </label>
-  <label>Email <input type="email" formControlName="email" /> </label>
-  <button type="submit" [disabled]="filterForm.invalid">Submit</button>
-</form>
-<p>{{filterForm.value.name}}</p>
-<p>{{filterForm.value.email}}</p>
+<mat-card class="filter-card">
+  <mat-card-header>
+    <mat-card-title>Фільтри</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="filterForm" class="filter-form">
+
+      <!-- Мультіселект категорій -->
+      <mat-form-field class="full-width">
+        <mat-label>Категорії транспорту</mat-label>
+        <mat-select formControlName="categories" multiple>
+          <mat-option *ngFor="let category of categories" [value]="category.value">
+            {{ category.label }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Оберіть один або декілька типів транспорту</mat-hint>
+      </mat-form-field>
+
+      <!-- Діапазон серйозності -->
+      <div class="severity-section">
+        <h4>Рівень серйозності</h4>
+        <div class="severity-controls">
+          <mat-form-field class="severity-input">
+            <mat-label>Від</mat-label>
+            <mat-select formControlName="severityMin">
+              <mat-option [value]="1">1 - Мінімальний</mat-option>
+              <mat-option [value]="2">2 - Низький</mat-option>
+              <mat-option [value]="3">3 - Середній</mat-option>
+              <mat-option [value]="4">4 - Високий</mat-option>
+              <mat-option [value]="5">5 - Критичний</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="severity-input">
+            <mat-label>До</mat-label>
+            <mat-select formControlName="severityMax">
+              <mat-option [value]="1">1 - Мінімальний</mat-option>
+              <mat-option [value]="2">2 - Низький</mat-option>
+              <mat-option [value]="3">3 - Середній</mat-option>
+              <mat-option [value]="4">4 - Високий</mat-option>
+              <mat-option [value]="5">5 - Критичний</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Діапазон дат -->
+      <div class="date-section">
+        <h4>Період часу</h4>
+        <div class="date-controls">
+          <mat-form-field class="date-input">
+            <mat-label>Дата від</mat-label>
+            <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom" readonly>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="date-input">
+            <mat-label>Дата до</mat-label>
+            <input matInput [matDatepicker]="pickerTo" formControlName="dateTo" readonly>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTo></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onReset()">
+      Скинути фільтри
+    </button>
+  </mat-card-actions>
+</mat-card>
