@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { FilterStore } from '../../stores/filter.store';
 
 export interface FilterData {
   categories: string[];
@@ -51,7 +52,10 @@ export class FilterComponent {
     dateTo: new FormControl<Date | null>(null),
   });
 
-  constructor() {
+  constructor(public filterStore: FilterStore) {
+    effect(() => {
+      console.log('Filters changed:', this.filterStore.filters());
+    });
     // Підписуємося на зміни форми
     this.filterForm.valueChanges.subscribe(() => {
       this.emitFilterChange();
@@ -60,6 +64,11 @@ export class FilterComponent {
 
   private emitFilterChange(): void {
     const formValue = this.filterForm.value;
+    console.log(formValue.categories);
+    this.filterStore.setCategory(
+      formValue.categories && formValue.categories.length > 0 ? formValue.categories[0] : null
+    );
+
     const filterData: FilterData = {
       categories: formValue.categories || [],
       severityRange: [formValue.severityMin || 1, formValue.severityMax || 5],
