@@ -5,6 +5,12 @@
 
   & > p {
     margin: 0;
+
+    span {
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-left: 3px;
+    }
   }
 }
 

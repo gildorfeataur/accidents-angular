@@ -1,11 +1,11 @@
 import {
   Component,
-  OnInit,
   createComponent,
   EnvironmentInjector,
   OnDestroy,
   ComponentRef,
   effect,
+  AfterViewInit,
 } from '@angular/core';
 import * as L from 'leaflet';
 import { Navigation } from '../../components/navigation/navigation';
@@ -21,7 +21,7 @@ import { Accident } from '../../models/accident';
   standalone: true,
   imports: [Navigation, FilterComponent],
 })
-export class AccidentsMapPage implements OnInit, OnDestroy {
+export class AccidentsMapPage implements OnDestroy, AfterViewInit {
   private accidents: Accident[] = [];
   private map!: L.Map;
   private markers: L.Marker[] = [];
@@ -31,7 +31,6 @@ export class AccidentsMapPage implements OnInit, OnDestroy {
     protected accidentsStore: AccidentsStore,
     private environmentInjector: EnvironmentInjector
   ) {
-    // Відстежуємо зміни в store та оновлюємо карту
     effect(() => {
       this.accidents = this.accidentsStore.accidents();
 
@@ -39,10 +38,6 @@ export class AccidentsMapPage implements OnInit, OnDestroy {
         this.addAccidentMarkers();
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.accidentsStore.getAccidents();
   }
 
   ngAfterViewInit(): void {

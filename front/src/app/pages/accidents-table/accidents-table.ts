@@ -1,5 +1,5 @@
-import { Component, effect, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AccidentsService } from '../../services/accidents.service';
 import { RouterLink } from '@angular/router';
 import { Navigation } from '../../components/navigation/navigation';
@@ -11,11 +11,11 @@ import { AccidentsStore } from '../../stores/accidents/accidents.store';
   selector: 'app-accidents',
   standalone: true,
   providers: [AccidentsService],
-  imports: [CommonModule, RouterLink, Navigation, FilterComponent],
+  imports: [CommonModule, RouterLink, Navigation, FilterComponent, DatePipe],
   templateUrl: './accidents-table.html',
   styleUrl: './accidents-table.scss',
 })
-export class AccidentsTablePage implements OnInit {
+export class AccidentsTablePage {
   protected accidents: Accident[] = [];
   protected accidentPageElements: Accident[] = [];
   protected page: number = 1;
@@ -29,10 +29,6 @@ export class AccidentsTablePage implements OnInit {
       this.accidents = this.accidentsStore.accidents();
       this.accidentPageElements = this.accidents.slice(0, this.limit * this.page);
     });
-  }
-
-  ngOnInit(): void {
-    this.accidentsStore.getAccidents();
   }
 
   protected nextPage(): void {

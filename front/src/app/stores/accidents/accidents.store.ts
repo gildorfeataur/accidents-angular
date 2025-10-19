@@ -7,13 +7,13 @@ import { FilterStore } from '../filter/filter.store';
   providedIn: 'root',
 })
 export class AccidentsStore {
-  private _allAccidents = signal<Accident[]>([]); // Оригінальні дані з API
+  private _defaultAccidents = signal<Accident[]>([]); // Оригінальні дані з API
   private _accidents = signal<Accident[]>([]); // Відфільтровані дані
   private _loading = signal(false);
   private _error = signal<string | null>(null);
 
   accidents = computed(() => this._accidents());
-  allAccidents = computed(() => this._allAccidents());
+  defaultAccidents = computed(() => this._defaultAccidents());
   loading = computed(() => this._loading());
   error = computed(() => this._error());
 
@@ -24,8 +24,8 @@ export class AccidentsStore {
     this._error.set(null);
     this.accidentsService.getAccidents().subscribe({
       next: (data) => {
-        this._allAccidents.set(data); // Зберігаємо оригінальні дані
-        this._accidents.set(data); // Спочатку показуємо всі дані
+        this._defaultAccidents.set(data);
+        this._accidents.set(data);
         this._loading.set(false);
       },
       error: (err) => {
@@ -40,24 +40,23 @@ export class AccidentsStore {
     this._accidents.set(accidents);
   }
 
-  /**
-   * Застосовує поточні фільтри до всіх аварій
-   */
   applyFilters(): void {
     const filters = this.filterStore.filters();
-    const allAccidents = this._allAccidents();
+    const allAccidents = this._defaultAccidents();
 
-    let filtered = [...allAccidents];
+    let filteredAccidents = [...allAccidents];
 
     // Фільтр по категоріях
     if (filters.categories && filters.categories.length > 0) {
-      filtered = filtered.filter((accident) => filters.categories!.includes(accident.category));
+      filteredAccidents = filteredAccidents.filter((accident) =>
+        filters.categories!.includes(accident.category)
+      );
     }
 
-    // Фільтр по рівню серйозності
+    // Фільтр по рівню складності
     if (filters.severityRange) {
       const [min, max] = filters.severityRange;
-      filtered = filtered.filter(
+      filteredAccidents = filteredAccidents.filter(
         (accident) => accident.severity >= min && accident.severity <= max
       );
     }
@@ -66,7 +65,7 @@ export class AccidentsStore {
     if (filters.dataRange && (filters.dataRange[0] || filters.dataRange[1])) {
       const [dateFrom, dateTo] = filters.dataRange;
 
-      filtered = filtered.filter((accident) => {
+      filteredAccidents = filteredAccidents.filter((accident) => {
         const accidentDate = new Date(accident.createdAt);
 
         if (dateFrom && dateTo) {
@@ -81,6 +80,6 @@ export class AccidentsStore {
       });
     }
 
-    this.setAccidents(filtered);
+    this.setAccidents(filteredAccidents);
   }
 }

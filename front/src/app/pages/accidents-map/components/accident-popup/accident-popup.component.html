@@ -1,7 +1,7 @@
 <div class="popup-container">
   <a href="/accidents/{{id}}" class="popup-title">{{title}}</a>
-  <p><strong>Категорія :</strong> {{category || 'N/A'}}</p>
-  <p><strong>Важкість:</strong> {{severity || 'N/A'}}</p>
-  <p><strong>Координати:</strong> {{lat || 'N/A'}}, {{lng || 'N/A'}}</p>
-  <p><strong>Час:</strong> {{createdAt || 'N/A'}}</p>
+  <p><strong>Категорія :</strong> <span>{{category}}</span></p>
+  <p><strong>Важкість:</strong> {{severity}}</p>
+  <p><strong>Координати:</strong> {{lat}}, {{lng}}</p>
+  <p><strong>Час:</strong> {{createdAt | date: 'dd.MM.yyyy HH:mm'}}</p>
 </div>

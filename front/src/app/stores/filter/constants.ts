@@ -1,4 +1,3 @@
-import { signal } from '@angular/core';
 import { FilterStoreProps } from './types';
 
 export const defaultFilterStoreValues: FilterStoreProps = {

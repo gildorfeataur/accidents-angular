@@ -47,80 +47,62 @@ export class FilterComponent {
       dateTo: new FormControl<Date | null>(this.filterStore.filters().dataRange[1] || null),
     });
 
-    // Синхронізація форми зі store
     effect(() => {
-      const filters = this.filterStore.filters();
-
+      const filterStore = this.filterStore.filters();
       // Оновлюємо форму при зміні store
       this.filterForm.patchValue(
         {
-          categories: filters.categories || [],
-          severityMin: filters.severityRange[0],
-          severityMax: filters.severityRange[1],
-          dateFrom: filters.dataRange[0],
-          dateTo: filters.dataRange[1],
+          categories: filterStore.categories || [],
+          severityMin: filterStore.severityRange[0],
+          severityMax: filterStore.severityRange[1],
+          dateFrom: filterStore.dataRange[0],
+          dateTo: filterStore.dataRange[1],
         },
         { emitEvent: false }
       );
     });
-
-    // Підписуємося на зміни окремих полів форми
+    // Підписуємося на зміни полів
     this.fieldChangeListeners();
   }
 
   private fieldChangeListeners(): void {
+    // Категорія
     this.filterForm.get(FilterFormFieldsEnum.Categories)?.valueChanges.subscribe((value) => {
-      this.fieldChangeHandler(FilterFormFieldsEnum.Categories, value);
+      this.filterStore.setCategory(value || []);
+      this.accidentsStore.applyFilters();
     });
 
+    // Мінімальний рівень
     this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.valueChanges.subscribe((value) => {
-      this.fieldChangeHandler(FilterFormFieldsEnum.SeverityMin, value);
+      const defaultMaxValue = this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.value;
+      this.filterStore.setSeverityRange([value, defaultMaxValue]);
+      this.accidentsStore.applyFilters();
     });
 
+    // Максимальний рівень
     this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.valueChanges.subscribe((value) => {
-      this.fieldChangeHandler(FilterFormFieldsEnum.SeverityMax, value);
+      const defaultMinValue = this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.value;
+      this.filterStore.setSeverityRange([defaultMinValue, value]);
+      this.accidentsStore.applyFilters();
     });
 
+    // Дата початок
     this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.valueChanges.subscribe((value) => {
-      this.fieldChangeHandler(FilterFormFieldsEnum.DateFrom, value);
+      const currentDateTo = this.filterForm.get(FilterFormFieldsEnum.DateTo)?.value;
+      this.filterStore.setDataRange([value, currentDateTo]);
+      this.accidentsStore.applyFilters();
     });
 
+    // Дата кінець
     this.filterForm.get(FilterFormFieldsEnum.DateTo)?.valueChanges.subscribe((value) => {
-      this.fieldChangeHandler(FilterFormFieldsEnum.DateTo, value);
+      const currentDateFrom = this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.value;
+      this.filterStore.setDataRange([currentDateFrom, value]);
+      this.accidentsStore.applyFilters();
     });
   }
 
-  private fieldChangeHandler(fieldName: FilterFormFieldsEnum, value: any): void {
-    console.log(`Поле "${fieldName}" змінилось на:`, value);
-
-    // Оновлюємо відповідне значення в store залежно від поля
-    switch (fieldName) {
-      case FilterFormFieldsEnum.Categories:
-        this.filterStore.setCategory(value || []);
-        break;
-
-      case FilterFormFieldsEnum.SeverityMin:
-      case FilterFormFieldsEnum.SeverityMax:
-        const currentMin = this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.value || 1;
-        const currentMax = this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.value || 5;
-        this.filterStore.setSeverityRange([currentMin, currentMax]);
-        break;
-
-      case FilterFormFieldsEnum.DateFrom:
-      case FilterFormFieldsEnum.DateTo:
-        const currentDateFrom = this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.value || null;
-        const currentDateTo = this.filterForm.get(FilterFormFieldsEnum.DateTo)?.value || null;
-        this.filterStore.setDataRange([currentDateFrom, currentDateTo]);
-        break;
-    }
-
-    // Застосовуємо фільтри до аварій
-    this.accidentsStore.applyFilters();
-  }
-
-  protected onReset(): void {
+  protected onResetHandler(): void {
     this.filterStore.reset();
-    // Скидаємо фільтри і показуємо всі аварії
     this.accidentsStore.applyFilters();
   }
 }
