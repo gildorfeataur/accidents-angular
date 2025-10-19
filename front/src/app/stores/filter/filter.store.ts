@@ -7,12 +7,12 @@ export class FilterStore {
   private _filters = signal<FilterStoreProps>(defaultFilterStoreValues);
 
   filters = computed(() => this._filters());
-  activeCategory = computed(() => this._filters().category);
+  categories = computed(() => this._filters().categories);
   severityRange = computed(() => this._filters().severityRange);
   dataRange = computed(() => this._filters().dataRange);
 
-  setCategory(category: string[] | null) {
-    this._filters.update((f) => ({ ...f, category }));
+  setCategory(categories: string[] | null) {
+    this._filters.update((f) => ({ ...f, categories }));
   }
 
   setSeverityRange(severityRange: [number, number]) {

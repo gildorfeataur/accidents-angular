@@ -10,13 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FilterStore } from '../../stores/filter/filter.store';
-
-export interface FilterData {
-  categories: string[];
-  severityRange: [number, number];
-  dateFrom: Date | null;
-  dateTo: Date | null;
-}
+import { FilterFormProps } from './filter.types';
+import { defaultCategoriesList } from './filter.constants';
 
 @Component({
   selector: 'app-filter',
@@ -36,13 +31,14 @@ export interface FilterData {
   ],
 })
 export class FilterComponent {
-  @Output() filterChange = new EventEmitter<FilterData>();
+  @Output() filterChange = new EventEmitter<FilterFormProps>();
 
   protected filterForm!: FormGroup;
+  protected categoriesList = defaultCategoriesList;
 
   constructor(public filterStore: FilterStore) {
     this.filterForm = new FormGroup({
-      categories: new FormControl<string[]>(this.filterStore.filters().category || []),
+      categories: new FormControl<string[]>(this.filterStore.filters().categories || []),
       severityMin: new FormControl(this.filterStore.filters().severityRange[0] || 1),
       severityMax: new FormControl(this.filterStore.filters().severityRange[1] || 5),
       dateFrom: new FormControl<Date | null>(this.filterStore.filters().dataRange[0] || null),
@@ -56,7 +52,7 @@ export class FilterComponent {
       // Оновлюємо форму при зміні store
       this.filterForm.patchValue(
         {
-          categories: filters.category || [],
+          categories: filters.categories || [],
           severityMin: filters.severityRange[0],
           severityMax: filters.severityRange[1],
           dateFrom: filters.dataRange[0],
@@ -72,12 +68,6 @@ export class FilterComponent {
     });
   }
 
-  protected categories = [
-    { value: 'bus', label: 'Автобус' },
-    { value: 'tram', label: 'Трамвай' },
-    { value: 'metro', label: 'Метро' },
-  ];
-
   private emitFilterChange(): void {
     const formValue = this.filterForm.value;
     this.filterStore.setCategory(formValue.categories ? formValue.categories : []);
@@ -85,8 +75,7 @@ export class FilterComponent {
     this.filterStore.setDataRange([formValue.dateFrom || null, formValue.dateTo || null]);
   }
 
-  onReset(): void {
+  protected onReset(): void {
     this.filterStore.reset();
-    // Форма автоматично оновиться через effect
   }
 }

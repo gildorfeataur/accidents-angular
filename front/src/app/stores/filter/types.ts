@@ -1,5 +1,5 @@
 export interface FilterStoreProps {
-  category: string[] | null;
+  categories: string[] | null;
   severityRange: [number, number];
   dataRange: [Date | null, Date | null];
 }
