@@ -9,7 +9,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { FilterStore } from '../../stores/filter.store';
+import { FilterStore } from '../../stores/filter/filter.store';
+import { filter } from 'rxjs';
 
 export interface FilterData {
   categories: string[];
@@ -38,23 +39,19 @@ export interface FilterData {
 export class FilterComponent {
   @Output() filterChange = new EventEmitter<FilterData>();
 
-  categories = [
-    { value: 'bus', label: 'Автобус' },
-    { value: 'tram', label: 'Трамвай' },
-    { value: 'metro', label: 'Метро' },
-  ];
-
-  protected filterForm = new FormGroup({
-    categories: new FormControl<string[]>([]),
-    severityMin: new FormControl(1),
-    severityMax: new FormControl(5),
-    dateFrom: new FormControl<Date | null>(null),
-    dateTo: new FormControl<Date | null>(null),
-  });
+  protected filterForm!: FormGroup;
 
   constructor(public filterStore: FilterStore) {
+    this.filterForm = new FormGroup({
+      categories: new FormControl<string[]>(this.filterStore.filters().category || []),
+      severityMin: new FormControl(this.filterStore.filters().severityRange[0] || 1),
+      severityMax: new FormControl(this.filterStore.filters().severityRange[1] || 5),
+      dateFrom: new FormControl<Date | null>(this.filterStore.filters().dataRange[0] || null),
+      dateTo: new FormControl<Date | null>(this.filterStore.filters().dataRange[1] || null),
+    });
+
     effect(() => {
-      console.log('Filters changed:', this.filterStore.filters());
+      console.log('Filters in store:', this.filterStore.filters());
     });
     // Підписуємося на зміни форми
     this.filterForm.valueChanges.subscribe(() => {
@@ -62,20 +59,26 @@ export class FilterComponent {
     });
   }
 
+  protected categories = [
+    { value: 'bus', label: 'Автобус' },
+    { value: 'tram', label: 'Трамвай' },
+    { value: 'metro', label: 'Метро' },
+  ];
+
   private emitFilterChange(): void {
     const formValue = this.filterForm.value;
     console.log(formValue.categories);
-    this.filterStore.setCategory(
-      formValue.categories && formValue.categories.length > 0 ? formValue.categories[0] : null
-    );
+    this.filterStore.setCategory(formValue.categories ? formValue.categories : []);
+    this.filterStore.setSeverityRange([formValue.severityMin || 1, formValue.severityMax || 5]);
+    this.filterStore.setDataRange([formValue.dateFrom || null, formValue.dateTo || null]);
 
-    const filterData: FilterData = {
-      categories: formValue.categories || [],
-      severityRange: [formValue.severityMin || 1, formValue.severityMax || 5],
-      dateFrom: formValue.dateFrom || null,
-      dateTo: formValue.dateTo || null,
-    };
-    this.filterChange.emit(filterData);
+    // const filterData: FilterData = {
+    //   categories: formValue.categories || [],
+    //   severityRange: [formValue.severityMin || 1, formValue.severityMax || 5],
+    //   dateFrom: formValue.dateFrom || null,
+    //   dateTo: formValue.dateTo || null,
+    // };
+    // this.filterChange.emit(filterData);
   }
 
   onReset(): void {
@@ -86,5 +89,6 @@ export class FilterComponent {
       dateFrom: null,
       dateTo: null,
     });
+    this.filterStore.reset();
   }
 }

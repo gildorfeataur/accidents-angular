@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { AccidentsService, Accident } from '../../services/accidents.service';
 import { RouterLink } from '@angular/router';
 import { Navigation } from '../../components/navigation/navigation';
+import { FilterComponent } from '../../components/filter/filter.component';
 
 @Component({
   selector: 'app-accidents',
   standalone: true,
   providers: [AccidentsService],
-  imports: [CommonModule, RouterLink, Navigation],
+  imports: [CommonModule, RouterLink, Navigation, FilterComponent],
   templateUrl: './accidents-table.html',
   styleUrl: './accidents-table.scss',
 })

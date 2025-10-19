@@ -10,6 +10,7 @@ import * as L from 'leaflet';
 import { Accident, AccidentsService } from '../../services/accidents.service';
 import { Navigation } from '../../components/navigation/navigation';
 import { AccidentPopup } from './components/accident-popup/accident-popup.component';
+import { FilterComponent } from '../../components/filter/filter.component';
 
 @Component({
   selector: 'app-accidents-map',
@@ -17,7 +18,7 @@ import { AccidentPopup } from './components/accident-popup/accident-popup.compon
   styleUrls: ['./accidents-map.scss'],
   providers: [AccidentsService],
   standalone: true,
-  imports: [Navigation],
+  imports: [Navigation, FilterComponent],
 })
 export class AccidentsMapPage implements OnInit, OnDestroy {
   private accidents: Accident[] = [];

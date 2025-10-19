@@ -1,7 +1,10 @@
 .filter-card {
-  margin: 16px;
+  margin-bottom: 20px;
 
   mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 16px;
   }
 
