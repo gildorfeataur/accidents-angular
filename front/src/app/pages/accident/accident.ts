@@ -1,8 +1,9 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Accident, AccidentsService } from '../../services/accidents.service';
+import { AccidentsService } from '../../services/accidents.service';
 import { Subscription } from 'rxjs';
+import { Accident } from '../../models/accident';
 
 @Component({
   selector: 'app-accident',

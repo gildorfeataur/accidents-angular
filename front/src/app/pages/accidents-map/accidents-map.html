@@ -2,4 +2,26 @@
 
 <app-filter></app-filter>
 
-<div id="map" style="height: 1000px;width: 100%;"></div>
+<section>
+  @if (accidentsStore.loading()) {
+  <div class="loading">
+    <p>Завантаження даних...</p>
+  </div>
+  }
+
+  @if (accidentsStore.error()) {
+  <div class="error">
+    <p>{{ accidentsStore.error() }}</p>
+  </div>
+  }
+
+  @if (!accidentsStore.loading() && !accidentsStore.error() && accidentsStore.accidents().length === 0) {
+  <div class="no-data">
+    <p>Немає даних про аварії</p>
+  </div>
+  }
+
+
+  <div id="map" class="map"></div>
+
+</section>

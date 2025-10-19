@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Accident {
-  id: string;
-  title: string;
-  category: string;
-  severity: number;
-  lat: number;
-  lng: number;
-  createdAt: string;
-}
+import { Accident } from '../models/accident';
 
 @Injectable({
   providedIn: 'root',

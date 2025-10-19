@@ -1,18 +1,16 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { FilterStoreProps } from './types';
 import { defaultFilterStoreValues } from './constants';
+import { FilterStoreProps } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class FilterStore {
-  private _filters = defaultFilterStoreValues;
+  private _filters = signal<FilterStoreProps>(defaultFilterStoreValues);
 
-  // 🔸 Селектори (computed)
   filters = computed(() => this._filters());
   activeCategory = computed(() => this._filters().category);
   severityRange = computed(() => this._filters().severityRange);
   dataRange = computed(() => this._filters().dataRange);
 
-  // 🔸 Методи оновлення стану
   setCategory(category: string[] | null) {
     this._filters.update((f) => ({ ...f, category }));
   }
@@ -26,6 +24,6 @@ export class FilterStore {
   }
 
   reset() {
-    this._filters.set(defaultFilterStoreValues());
+    this._filters.set(defaultFilterStoreValues);
   }
 }

@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FilterStore } from '../../stores/filter/filter.store';
-import { filter } from 'rxjs';
 
 export interface FilterData {
   categories: string[];
@@ -50,9 +49,23 @@ export class FilterComponent {
       dateTo: new FormControl<Date | null>(this.filterStore.filters().dataRange[1] || null),
     });
 
+    // Синхронізація форми зі store
     effect(() => {
-      console.log('Filters in store:', this.filterStore.filters());
+      const filters = this.filterStore.filters();
+
+      // Оновлюємо форму при зміні store
+      this.filterForm.patchValue(
+        {
+          categories: filters.category || [],
+          severityMin: filters.severityRange[0],
+          severityMax: filters.severityRange[1],
+          dateFrom: filters.dataRange[0],
+          dateTo: filters.dataRange[1],
+        },
+        { emitEvent: false }
+      );
     });
+
     // Підписуємося на зміни форми
     this.filterForm.valueChanges.subscribe(() => {
       this.emitFilterChange();
@@ -67,28 +80,13 @@ export class FilterComponent {
 
   private emitFilterChange(): void {
     const formValue = this.filterForm.value;
-    console.log(formValue.categories);
     this.filterStore.setCategory(formValue.categories ? formValue.categories : []);
     this.filterStore.setSeverityRange([formValue.severityMin || 1, formValue.severityMax || 5]);
     this.filterStore.setDataRange([formValue.dateFrom || null, formValue.dateTo || null]);
-
-    // const filterData: FilterData = {
-    //   categories: formValue.categories || [],
-    //   severityRange: [formValue.severityMin || 1, formValue.severityMax || 5],
-    //   dateFrom: formValue.dateFrom || null,
-    //   dateTo: formValue.dateTo || null,
-    // };
-    // this.filterChange.emit(filterData);
   }
 
   onReset(): void {
-    this.filterForm.reset({
-      categories: [],
-      severityMin: 1,
-      severityMax: 5,
-      dateFrom: null,
-      dateTo: null,
-    });
     this.filterStore.reset();
+    // Форма автоматично оновиться через effect
   }
 }

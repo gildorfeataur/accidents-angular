@@ -5,18 +5,19 @@ import {
   EnvironmentInjector,
   OnDestroy,
   ComponentRef,
+  effect,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { Accident, AccidentsService } from '../../services/accidents.service';
 import { Navigation } from '../../components/navigation/navigation';
 import { AccidentPopup } from './components/accident-popup/accident-popup.component';
 import { FilterComponent } from '../../components/filter/filter.component';
+import { AccidentsStore } from '../../stores/accidents/accidents.store';
+import { Accident } from '../../models/accident';
 
 @Component({
   selector: 'app-accidents-map',
   templateUrl: './accidents-map.html',
   styleUrls: ['./accidents-map.scss'],
-  providers: [AccidentsService],
   standalone: true,
   imports: [Navigation, FilterComponent],
 })
@@ -26,16 +27,22 @@ export class AccidentsMapPage implements OnInit, OnDestroy {
   private markers: L.Marker[] = [];
   private popupComponents: ComponentRef<AccidentPopup>[] = [];
 
-  protected loading = true;
-  protected error: string | null = null;
-
   constructor(
-    private accidentsService: AccidentsService,
+    protected accidentsStore: AccidentsStore,
     private environmentInjector: EnvironmentInjector
-  ) {}
+  ) {
+    // Відстежуємо зміни в store та оновлюємо карту
+    effect(() => {
+      this.accidents = this.accidentsStore.accidents();
+
+      if (this.map && this.accidents.length > 0) {
+        this.addAccidentMarkers();
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.loadAccidents();
+    this.accidentsStore.getAccidents();
   }
 
   ngAfterViewInit(): void {
@@ -46,26 +53,6 @@ export class AccidentsMapPage implements OnInit, OnDestroy {
     this.popupComponents.forEach((ref) => ref.destroy());
     this.popupComponents = [];
     this.map?.remove();
-  }
-
-  private loadAccidents(): void {
-    this.loading = true;
-    this.error = null;
-
-    this.accidentsService.getAccidents().subscribe({
-      next: (data) => {
-        this.accidents = data;
-        this.loading = false;
-        if (this.map) {
-          this.addAccidentMarkers();
-        }
-      },
-      error: (err) => {
-        this.error = 'Помилка завантаження даних про аварії';
-        this.loading = false;
-        console.error('Error loading accidents:', err);
-      },
-    });
   }
 
   private initMap(): void {
