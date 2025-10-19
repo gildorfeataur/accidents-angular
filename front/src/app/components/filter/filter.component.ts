@@ -10,8 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FilterStore } from '../../stores/filter/filter.store';
-import { FilterFormProps } from './filter.types';
-import { defaultCategoriesList } from './filter.constants';
+import { FilterFormFieldsEnum, FilterFormProps } from './filter.types';
+import { defaultCategoriesList, defaultSeverityLevels } from './filter.constants';
+import { AccidentsStore } from '../../stores/accidents/accidents.store';
 
 @Component({
   selector: 'app-filter',
@@ -35,8 +36,9 @@ export class FilterComponent {
 
   protected filterForm!: FormGroup;
   protected categoriesList = defaultCategoriesList;
+  protected severityLevels = defaultSeverityLevels;
 
-  constructor(public filterStore: FilterStore) {
+  constructor(public filterStore: FilterStore, private accidentsStore: AccidentsStore) {
     this.filterForm = new FormGroup({
       categories: new FormControl<string[]>(this.filterStore.filters().categories || []),
       severityMin: new FormControl(this.filterStore.filters().severityRange[0] || 1),
@@ -62,20 +64,63 @@ export class FilterComponent {
       );
     });
 
-    // Підписуємося на зміни форми
-    this.filterForm.valueChanges.subscribe(() => {
-      this.emitFilterChange();
+    // Підписуємося на зміни окремих полів форми
+    this.fieldChangeListeners();
+  }
+
+  private fieldChangeListeners(): void {
+    this.filterForm.get(FilterFormFieldsEnum.Categories)?.valueChanges.subscribe((value) => {
+      this.fieldChangeHandler(FilterFormFieldsEnum.Categories, value);
+    });
+
+    this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.valueChanges.subscribe((value) => {
+      this.fieldChangeHandler(FilterFormFieldsEnum.SeverityMin, value);
+    });
+
+    this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.valueChanges.subscribe((value) => {
+      this.fieldChangeHandler(FilterFormFieldsEnum.SeverityMax, value);
+    });
+
+    this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.valueChanges.subscribe((value) => {
+      this.fieldChangeHandler(FilterFormFieldsEnum.DateFrom, value);
+    });
+
+    this.filterForm.get(FilterFormFieldsEnum.DateTo)?.valueChanges.subscribe((value) => {
+      this.fieldChangeHandler(FilterFormFieldsEnum.DateTo, value);
     });
   }
 
-  private emitFilterChange(): void {
-    const formValue = this.filterForm.value;
-    this.filterStore.setCategory(formValue.categories ? formValue.categories : []);
-    this.filterStore.setSeverityRange([formValue.severityMin || 1, formValue.severityMax || 5]);
-    this.filterStore.setDataRange([formValue.dateFrom || null, formValue.dateTo || null]);
+  private fieldChangeHandler(fieldName: FilterFormFieldsEnum, value: any): void {
+    console.log(`Поле "${fieldName}" змінилось на:`, value);
+
+    // Оновлюємо відповідне значення в store залежно від поля
+    switch (fieldName) {
+      case FilterFormFieldsEnum.Categories:
+        this.filterStore.setCategory(value || []);
+        break;
+
+      case FilterFormFieldsEnum.SeverityMin:
+      case FilterFormFieldsEnum.SeverityMax:
+        const currentMin = this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.value || 1;
+        const currentMax = this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.value || 5;
+        this.filterStore.setSeverityRange([currentMin, currentMax]);
+        break;
+
+      case FilterFormFieldsEnum.DateFrom:
+      case FilterFormFieldsEnum.DateTo:
+        const currentDateFrom = this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.value || null;
+        const currentDateTo = this.filterForm.get(FilterFormFieldsEnum.DateTo)?.value || null;
+        this.filterStore.setDataRange([currentDateFrom, currentDateTo]);
+        break;
+    }
+
+    // Застосовуємо фільтри до аварій
+    this.accidentsStore.applyFilters();
   }
 
   protected onReset(): void {
     this.filterStore.reset();
+    // Скидаємо фільтри і показуємо всі аварії
+    this.accidentsStore.applyFilters();
   }
 }

@@ -19,34 +19,32 @@
       </mat-form-field>
 
       <div class="severity-section">
-        <h4>Рівень серйозності</h4>
         <div class="severity-controls">
           <mat-form-field class="severity-input">
             <mat-label>Від</mat-label>
             <mat-select formControlName="severityMin">
-              <mat-option [value]="1">1 - Мінімальний</mat-option>
-              <mat-option [value]="2">2 - Низький</mat-option>
-              <mat-option [value]="3">3 - Середній</mat-option>
-              <mat-option [value]="4">4 - Високий</mat-option>
-              <mat-option [value]="5">5 - Критичний</mat-option>
+              @for (severity of severityLevels; track $index) {
+              <mat-option [value]="severity.value">
+                {{ severity.label }}
+              </mat-option>
+              }
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="severity-input">
             <mat-label>До</mat-label>
             <mat-select formControlName="severityMax">
-              <mat-option [value]="1">1 - Мінімальний</mat-option>
-              <mat-option [value]="2">2 - Низький</mat-option>
-              <mat-option [value]="3">3 - Середній</mat-option>
-              <mat-option [value]="4">4 - Високий</mat-option>
-              <mat-option [value]="5">5 - Критичний</mat-option>
+              @for (severity of severityLevels; track $index) {
+              <mat-option [value]="severity.value">
+                {{ severity.label }}
+              </mat-option>
+              }
             </mat-select>
           </mat-form-field>
         </div>
       </div>
 
       <div class="date-section">
-        <h4>Період часу</h4>
         <div class="date-controls">
           <mat-form-field class="date-input">
             <mat-label>Дата від</mat-label>

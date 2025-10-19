@@ -1,3 +1,11 @@
+export enum FilterFormFieldsEnum {
+  Categories = 'categories',
+  SeverityMin = 'severityMin',
+  SeverityMax = 'severityMax',
+  DateFrom = 'dateFrom',
+  DateTo = 'dateTo',
+}
+
 export interface FilterFormProps {
   categories: string[];
   severityRange: [number, number];
