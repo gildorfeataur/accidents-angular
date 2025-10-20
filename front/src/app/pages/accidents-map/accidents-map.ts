@@ -13,13 +13,14 @@ import { AccidentPopup } from './components/accident-popup/accident-popup.compon
 import { FilterComponent } from '../../components/filter/filter.component';
 import { AccidentsStore } from '../../stores/accidents/accidents.store';
 import { Accident } from '../../models/accident';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-accidents-map',
   templateUrl: './accidents-map.html',
   styleUrls: ['./accidents-map.scss'],
   standalone: true,
-  imports: [Navigation, FilterComponent],
+  imports: [Navigation, FilterComponent, MatProgressSpinnerModule],
 })
 export class AccidentsMapPage implements OnDestroy, AfterViewInit {
   private accidents: Accident[] = [];

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-accident-popup',
   templateUrl: './accident-popup.component.html',
   styleUrls: ['./accident-popup.component.scss'],
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   standalone: true,
 })
 export class AccidentPopup {

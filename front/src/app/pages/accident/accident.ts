@@ -5,6 +5,7 @@ import { AccidentsService } from '../../services/accidents.service';
 import { Subscription } from 'rxjs';
 import { Accident } from '../../models/accident';
 import { AccidentsStore } from '../../stores/accidents/accidents.store';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-accident',
@@ -12,7 +13,7 @@ import { AccidentsStore } from '../../stores/accidents/accidents.store';
   styleUrl: './accident.scss',
   standalone: true,
   providers: [AccidentsService],
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, MatProgressSpinner],
 })
 export class AccidentPage implements OnInit, OnDestroy {
   private accidentId: string | null = null;

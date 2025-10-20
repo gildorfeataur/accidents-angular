@@ -1,4 +1,47 @@
 .map {
-  height: 1000px;
-  width: 100%;
+  position: relative;
+  height: calc(100vh - 300px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-container {
+    height: 100%;
+    width: 100%;
+    visibility: visible;
+  }
+
+  &.loading {
+    .map-container {
+      visibility: hidden;
+    }
+
+    .loading-container {
+      position: absolute;
+      inset: 0 0 0 0;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: auto;
+    }
+  }
+
+  &.error {
+    .map-container {
+      visibility: hidden;
+    }
+
+    .error-container {
+      position: absolute;
+      inset: 0 0 0 0;
+      height: fit-content;
+      color: red;
+      font-size: 18px;
+      text-align: center;
+      margin: auto;
+    }
+  }
 }

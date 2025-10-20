@@ -2,15 +2,16 @@
 
 <app-filter></app-filter>
 
-<section>
+<section class="map" [class.loading]="accidentsStore.loading()" [class.error]="accidentsStore.error()">
   @if (accidentsStore.loading()) {
-  <div class="loading">
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
     <p>Завантаження даних...</p>
   </div>
   }
 
   @if (accidentsStore.error()) {
-  <div class="error">
+  <div class="error-container">
     <p>{{ accidentsStore.error() }}</p>
   </div>
   }
@@ -22,6 +23,6 @@
   }
 
 
-  <div id="map" class="map"></div>
+  <div id="map" class="map-container"></div>
 
 </section>

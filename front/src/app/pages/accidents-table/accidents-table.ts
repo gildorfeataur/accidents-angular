@@ -6,12 +6,13 @@ import { Navigation } from '../../components/navigation/navigation';
 import { FilterComponent } from '../../components/filter/filter.component';
 import { Accident } from '../../models/accident';
 import { AccidentsStore } from '../../stores/accidents/accidents.store';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-accidents',
   standalone: true,
   providers: [AccidentsService],
-  imports: [CommonModule, RouterLink, Navigation, FilterComponent, DatePipe],
+  imports: [CommonModule, RouterLink, Navigation, FilterComponent, DatePipe, MatProgressSpinner],
   templateUrl: './accidents-table.html',
   styleUrl: './accidents-table.scss',
 })
