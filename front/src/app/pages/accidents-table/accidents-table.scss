@@ -6,10 +6,6 @@
   justify-content: center;
 
   &.loading {
-    .map-container {
-      display: none;
-    }
-
     .loading-container {
       height: fit-content;
       display: flex;
@@ -21,15 +17,17 @@
   }
 
   &.error {
-    .map-container {
-      display: none;
-    }
-
     .error-container {
       color: red;
       font-size: 18px;
       text-align: center;
     }
+  }
+
+  .no-data-container {
+    font-size: 18px;
+    text-align: center;
+    color: #6c757d;
   }
 }
 

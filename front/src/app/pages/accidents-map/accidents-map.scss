@@ -44,4 +44,14 @@
       margin: auto;
     }
   }
+
+  .no-data-container {
+    position: absolute;
+    inset: 0 0 0 0;
+    height: fit-content;
+    font-size: 18px;
+    text-align: center;
+    margin: auto;
+    z-index: 10;
+  }
 }

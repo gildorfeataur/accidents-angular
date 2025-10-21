@@ -17,27 +17,22 @@ export class AccidentsStore {
   loading = computed(() => this._loading());
   error = computed(() => this._error());
 
-  constructor(private accidentsService: AccidentsService, private filterStore: FilterStore) {}
-
-  getAccidents(): void {
-    this._loading.set(true);
-    this._error.set(null);
-    this.accidentsService.getAccidents().subscribe({
-      next: (data) => {
-        this._defaultAccidents.set(data);
-        this._accidents.set(data);
-        this._loading.set(false);
-      },
-      error: (err) => {
-        this._loading.set(false);
-        this._error.set('Помилка завантаження даних про аварії');
-        console.error('Error loading accidents:', err);
-      },
-    });
-  }
+  constructor(private filterStore: FilterStore) {}
 
   setAccidents(accidents: Accident[]): void {
     this._accidents.set(accidents);
+  }
+
+  setDefaultAccidents(accidents: Accident[]): void {
+    this._defaultAccidents.set(accidents);
+  }
+
+  setLoading(loading: boolean): void {
+    this._loading.set(loading);
+  }
+
+  setError(error: string | null): void {
+    this._error.set(error);
   }
 
   applyFilters(): void {
