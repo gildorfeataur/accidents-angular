@@ -13,6 +13,7 @@ import { FilterStore } from '../../stores/filter/filter.store';
 import { FilterFormFieldsEnum, FilterFormProps } from './filter.types';
 import { defaultCategoriesList, defaultSeverityLevels } from './filter.constants';
 import { AccidentsStore } from '../../stores/accidents/accidents.store';
+import { AccidentsStoreFiltersEnum } from '../../stores/accidents/types';
 
 @Component({
   selector: 'app-filter',
@@ -69,40 +70,40 @@ export class FilterComponent {
     // Категорія
     this.filterForm.get(FilterFormFieldsEnum.Categories)?.valueChanges.subscribe((value) => {
       this.filterStore.setCategory(value || []);
-      this.accidentsStore.applyFilters();
+      this.accidentsStore.applyFilters(AccidentsStoreFiltersEnum.Categories);
     });
 
     // Мінімальний рівень
     this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.valueChanges.subscribe((value) => {
       const defaultMaxValue = this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.value;
       this.filterStore.setSeverityRange([value, defaultMaxValue]);
-      this.accidentsStore.applyFilters();
+      this.accidentsStore.applyFilters(AccidentsStoreFiltersEnum.SeverityRange);
     });
 
     // Максимальний рівень
     this.filterForm.get(FilterFormFieldsEnum.SeverityMax)?.valueChanges.subscribe((value) => {
       const defaultMinValue = this.filterForm.get(FilterFormFieldsEnum.SeverityMin)?.value;
       this.filterStore.setSeverityRange([defaultMinValue, value]);
-      this.accidentsStore.applyFilters();
+      this.accidentsStore.applyFilters(AccidentsStoreFiltersEnum.SeverityRange);
     });
 
     // Дата початок
     this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.valueChanges.subscribe((value) => {
       const currentDateTo = this.filterForm.get(FilterFormFieldsEnum.DateTo)?.value;
       this.filterStore.setDataRange([value, currentDateTo]);
-      this.accidentsStore.applyFilters();
+      this.accidentsStore.applyFilters(AccidentsStoreFiltersEnum.DataRange);
     });
 
     // Дата кінець
     this.filterForm.get(FilterFormFieldsEnum.DateTo)?.valueChanges.subscribe((value) => {
       const currentDateFrom = this.filterForm.get(FilterFormFieldsEnum.DateFrom)?.value;
       this.filterStore.setDataRange([currentDateFrom, value]);
-      this.accidentsStore.applyFilters();
+      this.accidentsStore.applyFilters(AccidentsStoreFiltersEnum.DataRange);
     });
   }
 
   protected onResetHandler(): void {
     this.filterStore.reset();
-    this.accidentsStore.applyFilters();
+    this.accidentsStore.setAccidents(this.accidentsStore.defaultAccidents());
   }
 }

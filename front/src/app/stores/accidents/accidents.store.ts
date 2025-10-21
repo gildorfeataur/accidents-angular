@@ -2,6 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { AccidentsService } from '../../services/accidents.service';
 import { Accident } from '../../models/accident';
 import { FilterStore } from '../filter/filter.store';
+import { AccidentsStoreFiltersEnum } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -35,21 +36,25 @@ export class AccidentsStore {
     this._error.set(error);
   }
 
-  applyFilters(): void {
+  applyFilters(name: AccidentsStoreFiltersEnum): void {
     const filters = this.filterStore.filters();
     const allAccidents = this._defaultAccidents();
 
     let filteredAccidents = [...allAccidents];
 
     // Фільтр по категоріях
-    if (filters.categories && filters.categories.length > 0) {
+    if (
+      name === AccidentsStoreFiltersEnum.Categories &&
+      filters.categories &&
+      filters.categories.length > 0
+    ) {
       filteredAccidents = filteredAccidents.filter((accident) =>
         filters.categories!.includes(accident.category)
       );
     }
 
     // Фільтр по рівню складності
-    if (filters.severityRange) {
+    if (name === AccidentsStoreFiltersEnum.SeverityRange) {
       const [min, max] = filters.severityRange;
       filteredAccidents = filteredAccidents.filter(
         (accident) => accident.severity >= min && accident.severity <= max
@@ -57,7 +62,10 @@ export class AccidentsStore {
     }
 
     // Фільтр по даті
-    if (filters.dataRange && (filters.dataRange[0] || filters.dataRange[1])) {
+    if (
+      name === AccidentsStoreFiltersEnum.DataRange &&
+      (filters.dataRange[0] || filters.dataRange[1])
+    ) {
       const [dateFrom, dateTo] = filters.dataRange;
 
       filteredAccidents = filteredAccidents.filter((accident) => {
