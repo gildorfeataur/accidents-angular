@@ -9,22 +9,22 @@
     </div>
   </div>
 
-  @if (loading) {
+  @if (accidentsStore.loading()) {
   <div class="loading">
     <mat-spinner></mat-spinner>
     <p>Завантаження даних про аварію...</p>
   </div>
   }
 
-  @if (error) {
+  @if (accidentsStore.error()) {
   <div class="error">
     <div class="error-icon">⚠</div>
-    <p>{{ error }}</p>
+    <p>{{ accidentsStore.error() }}</p>
     <button class="retry-btn" (click)="loadAccident()">Спробувати знову</button>
   </div>
   }
 
-  @if (!loading && !error && !accident) {
+  @if (!accidentsStore.loading() && !accidentsStore.error() && !accident) {
   <div class="no-data">
     <div class="no-data-icon">📄</div>
     <p>Аварію не знайдено</p>
@@ -32,7 +32,7 @@
   </div>
   }
 
-  @if (!loading && !error && accident) {
+  @if (!accidentsStore.loading() && !accidentsStore.error() && accident) {
   <div class="accident-details">
     <div class="details-card">
       <h2 class="card-title">Основна інформація</h2>

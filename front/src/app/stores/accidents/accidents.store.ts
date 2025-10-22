@@ -39,10 +39,8 @@ export class AccidentsStore {
   applyFilters(name: AccidentsStoreFiltersEnum): void {
     const filters = this.filterStore.filters();
     const allAccidents = this._defaultAccidents();
-
     let filteredAccidents = [...allAccidents];
 
-    // Фільтр по категоріях
     if (
       name === AccidentsStoreFiltersEnum.Categories &&
       filters.categories &&
@@ -53,7 +51,6 @@ export class AccidentsStore {
       );
     }
 
-    // Фільтр по рівню складності
     if (name === AccidentsStoreFiltersEnum.SeverityRange) {
       const [min, max] = filters.severityRange;
       filteredAccidents = filteredAccidents.filter(
@@ -61,7 +58,6 @@ export class AccidentsStore {
       );
     }
 
-    // Фільтр по даті
     if (
       name === AccidentsStoreFiltersEnum.DataRange &&
       (filters.dataRange[0] || filters.dataRange[1])

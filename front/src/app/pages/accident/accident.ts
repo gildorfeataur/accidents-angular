@@ -19,11 +19,9 @@ export class AccidentPage implements OnInit, OnDestroy {
   private accidentId: string | null = null;
   protected subscription: Subscription | null = null;
   protected accident: Accident | null = null;
-  protected loading = true;
-  protected error: string | null = null;
 
   constructor(
-    private accidentsStore: AccidentsStore,
+    protected accidentsStore: AccidentsStore,
     private accidentsService: AccidentsService,
     private route: ActivatedRoute,
     private location: Location
@@ -34,8 +32,8 @@ export class AccidentPage implements OnInit, OnDestroy {
         const foundAccident = accidents.find((accident) => accident.id === this.accidentId);
         if (foundAccident) {
           this.accident = foundAccident;
-          this.loading = false;
-          this.error = null;
+          this.accidentsStore.setLoading(false);
+          this.accidentsStore.setError(null);
         }
       }
     });
@@ -50,12 +48,11 @@ export class AccidentPage implements OnInit, OnDestroy {
 
   loadAccident(): void {
     const accidents = this.accidentsStore.accidents();
-    this.loading = true;
-    this.error = null;
+    this.accidentsStore.setLoading(true);
 
     if (!this.accidentId) {
-      this.error = 'Invalid accident ID';
-      this.loading = false;
+      this.accidentsStore.setError('Invalid accident ID');
+      this.accidentsStore.setLoading(false);
       return;
     }
 
@@ -63,7 +60,7 @@ export class AccidentPage implements OnInit, OnDestroy {
       const foundAccident = accidents.find((accident) => accident.id === this.accidentId);
       if (foundAccident) {
         this.accident = foundAccident;
-        this.loading = false;
+        this.accidentsStore.setLoading(false);
         return;
       }
     }
@@ -71,12 +68,12 @@ export class AccidentPage implements OnInit, OnDestroy {
     this.accidentsService.getAccidentById(this.accidentId).subscribe({
       next: (data) => {
         this.accident = data;
-        this.loading = false;
+        this.accidentsStore.setLoading(false);
       },
       error: (err) => {
-        this.error = 'Помилка завантаження даних про аварії';
-        this.loading = false;
-        console.error('Error loading accidents:', err);
+        this.accidentsStore.setError('Помилка завантаження даних про аварії');
+        this.accidentsStore.setLoading(false);
+        console.error('Error loading accident:', err);
       },
     });
   }
